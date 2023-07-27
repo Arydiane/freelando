@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const usuarioInicial = {
     perfil: '', 
@@ -14,6 +15,7 @@ const usuarioInicial = {
 
 export const CadastroUsuarioContext = createContext({
     usuario: usuarioInicial,
+    erros: {}, 
     setPerfil: () => null, 
     setInteresse: () => null,
     setNomeCompleto: () => null,
@@ -22,15 +24,19 @@ export const CadastroUsuarioContext = createContext({
     setEmail: () => null,
     setSenha: () => null,
     setSenhaConfirmada: () => null,
+    submeterUsuario: () => null,
+    possoSelecionarInteresse: () => null,
+    possoSelecionarDadosPessoais: () => null,
 })
 
 export const useCadastroUsuarioContext = () => {
-    return useState(CadastroUsuarioContext);
+    return useContext(CadastroUsuarioContext);
 }
 
 export const CadastroUsuarioProvider = ({ children }) => {
-
+    const navigate = useNavigate()
     const [usuario, setUsuario] = useState(usuarioInicial)
+    const [erros, setErros] = useState({})
 
     const setPerfil = (perfil) => {
         setUsuario(estadoAnterior => {
@@ -104,8 +110,34 @@ export const CadastroUsuarioProvider = ({ children }) => {
         })
     }
 
+    const submeterUsuario = () => {
+
+        setErros({})
+        
+        if (usuario.senha.length < 8 ) {
+            setErros({ senha: "Senha deve possuir no mínimo 8 caracteres!" })
+            return 
+        }
+
+        if (usuario.senha !== usuario.senhaConfirmada) {
+            setErros({ senhaConfirmada: "Senhas diferentes. Digite a mesma senha em ambos os campos de senha." })
+            return
+        }
+
+        navigate('/cadastro/concluido')
+    }
+
+    const possoSelecionarInteresse = () => {
+        return !!usuario.perfil
+    }
+
+    const possoSelecionarDadosPessoais = () => {
+        return !!usuario.interesse
+    }
+
     const contexto = {
         usuario, 
+        erros,
         setPerfil,
         setInteresse, 
         setNomeCompleto, 
@@ -114,6 +146,9 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setEmail, 
         setSenha, 
         setSenhaConfirmada,
+        submeterUsuario, 
+        possoSelecionarInteresse, 
+        possoSelecionarDadosPessoais
     }
 
     return (
