@@ -1,9 +1,10 @@
 import GrupoRadio from "../../components/Radio/GrupoRadio"
-import { useState } from "react"
 import { Col, Row } from "react-grid-system"
 import { Botao } from "../../components/Botao/Botao"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import CabecalhoCadastro from "../../components/CabecalhoCadastro/CabecalhoCadastro"
+import { useCadastroUsuarioContext } from "../../context/CadastroUsuario"
+import { useEffect } from "react"
 
 const opcoes = [
     {
@@ -34,7 +35,14 @@ const opcoes = [
 
 const Interesses = () => {
 
-    const [opcao, setOpcao] = useState('')
+    const { usuario, setInteresse, possoSelecionarInteresse } = useCadastroUsuarioContext()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!possoSelecionarInteresse()) {
+            navigate('/cadastro')
+        }
+    }, [navigate, possoSelecionarInteresse])
 
     return (
         <div style={{ textAlign: 'center' }}>
@@ -44,8 +52,8 @@ const Interesses = () => {
             />
             <GrupoRadio
                 opcoes={opcoes}
-                valor={opcao}
-                onChange={setOpcao}
+                valor={usuario.interesse}
+                onChange={setInteresse}
             />
             <Row>
                 <Col lg={6} md={6} sm={6}>
