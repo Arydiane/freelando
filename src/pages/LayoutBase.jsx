@@ -12,7 +12,7 @@ import { IconeInstagram } from "../components/Icones/IconeInstagram"
 import { IconeTwitter } from "../components/Icones/IconeTwitter"
 import { Outlet } from "react-router-dom"
 
-const LayoutBase = () => {
+const LayoutBase = ({ children }) => {
     return (
         <>
             <Cabecalho>
@@ -28,6 +28,7 @@ const LayoutBase = () => {
                 </Container>
             </Cabecalho>
             <Outlet />
+            {children}
             <Rodape>
                 <Container>
                     <Row align="center">
