@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import http from "../http";
 
 const usuarioInicial = {
     perfil: '',
@@ -123,7 +123,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
             return
         }
 
-        axios.post('http://localhost:8080/auth/register', usuario)
+        http.post('auth/register', usuario)
             .then(() => {
                 navigate('/cadastro/concluido')
             })
