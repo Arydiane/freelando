@@ -10,7 +10,7 @@ import { IconeWhatsApp } from "../components/Icones/IconeWhatsApp"
 import { IconeTwitch } from "../components/Icones/IconeTwitch"
 import { IconeInstagram } from "../components/Icones/IconeInstagram"
 import { IconeTwitter } from "../components/Icones/IconeTwitter"
-import { Outlet } from "react-router-dom"
+import { Outlet, Link as RouterLink } from "react-router-dom"
 
 const LayoutBase = ({ children }) => {
     return (
@@ -19,10 +19,14 @@ const LayoutBase = ({ children }) => {
                 <Container>
                     <Row align="center">
                         <Col>
-                            <FreelandoLogo />
+                            <RouterLink to="/">
+                                <FreelandoLogo />
+                            </RouterLink>
                         </Col>
                         <Col style={{ textAlign: 'right' }}>
-                            <Link>Login</Link>
+                            <RouterLink to="/login">
+                                <Link>Login</Link>
+                            </RouterLink>
                         </Col>
                     </Row>
                 </Container>
