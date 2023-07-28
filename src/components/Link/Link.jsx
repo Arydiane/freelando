@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const LinkPrimario = styled.a`
+const LinkPrimario = styled.span`
     cursor: pointer;
     font-weight: 400;
     font-size: 20px;
@@ -12,7 +12,7 @@ const LinkPrimario = styled.a`
     }
 `
 
-const LinkSecundario = styled.a`
+const LinkSecundario = styled.span`
     cursor: pointer;
     font-weight: 400;
     font-size: 16px;
