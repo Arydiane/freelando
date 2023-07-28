@@ -8,6 +8,7 @@ import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Botao } from "../../components/Botao/Botao"
 import { Link } from "../../components/Link/Link"
+import { useSessaoUsuarioContext } from "../../context/SessaoUsuario";
 
 const FormEstilizado = styled.form`
     border-bottom: 1px solid;
@@ -19,6 +20,13 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    const { login } = useSessaoUsuarioContext()
+
+    const tentarEfetuarLogin = async (evento) => {
+        evento.preventDefault(); 
+        login(email, senha)
+    }
 
     return (
         <Container>
@@ -33,7 +41,7 @@ const Login = () => {
                                 Efetuar Login
                             </Tipografia>
                         </div>
-                        <FormEstilizado>
+                        <FormEstilizado onSubmit={tentarEfetuarLogin}>
                             <CampoTexto
                                 titulo="Email"
                                 valor={email}
