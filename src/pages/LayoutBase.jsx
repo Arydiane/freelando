@@ -11,8 +11,12 @@ import { IconeTwitch } from "../components/Icones/IconeTwitch"
 import { IconeInstagram } from "../components/Icones/IconeInstagram"
 import { IconeTwitter } from "../components/Icones/IconeTwitter"
 import { Outlet, Link as RouterLink } from "react-router-dom"
+import { useSessaoUsuarioContext } from "../context/SessaoUsuario"
 
 const LayoutBase = ({ children }) => {
+
+    const { usuarioEstaLogado, logout } = useSessaoUsuarioContext()
+
     return (
         <>
             <Cabecalho>
@@ -24,9 +28,16 @@ const LayoutBase = ({ children }) => {
                             </RouterLink>
                         </Col>
                         <Col style={{ textAlign: 'right' }}>
-                            <RouterLink to="/login">
-                                <Link>Login</Link>
-                            </RouterLink>
+                            {
+                                usuarioEstaLogado ?
+                                    <Link onClick={logout}>
+                                        Logout
+                                    </Link>
+                                    :
+                                    <RouterLink to="/login">
+                                        <Link>Login</Link>
+                                    </RouterLink>
+                            }
                         </Col>
                     </Row>
                 </Container>
