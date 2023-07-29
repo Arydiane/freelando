@@ -5,12 +5,25 @@ import LayoutBaseCadastro from "../pages/cadastro/LayoutBaseCadastro";
 import Interesses from "../pages/cadastro/Interesses";
 import DadosPessoais from "../pages/cadastro/DadosPessoais"
 import Concluido from "../pages/cadastro/Concluido";
+import PaginaInicial from "../pages/PaginaInicial/PaginaInicial";
+import Pagina404 from "../pages/erros/Pagina404";
+import Login from "../pages/Login/Login";
+import Perfil from "../pages/area-logada/Perfil";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <LayoutBase />,
+        ErrorBoundary: Pagina404, 
         children: [
+            {
+                path: '', 
+                element: <PaginaInicial />
+            }, 
+            {
+                path: 'login',
+                element: <Login />
+            },
             {
                 path: 'cadastro',
                 element: <LayoutBaseCadastro />,
@@ -32,7 +45,16 @@ export const router = createBrowserRouter([
                         element: <Concluido />
                     }
                 ]
-            }
+            }, 
+            {
+               path: 'area-logada', 
+               children: [
+                {
+                    path: 'perfil', 
+                    element: <Perfil />
+                }
+               ]
+            }, 
         ]
     },
 ]);

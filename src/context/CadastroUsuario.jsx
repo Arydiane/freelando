@@ -1,22 +1,23 @@
 import { useContext, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import http from "../http";
 
 const usuarioInicial = {
-    perfil: '', 
-    interesse: '', 
+    perfil: '',
+    interesse: '',
     nomeCompleto: '',
-    uf: '', 
+    uf: '',
     cidade: '',
-    email: '', 
-    senha: '', 
-    senhaConfirmada: '', 
+    email: '',
+    senha: '',
+    senhaConfirmada: '',
 }
 
 export const CadastroUsuarioContext = createContext({
     usuario: usuarioInicial,
-    erros: {}, 
-    setPerfil: () => null, 
+    erros: {},
+    setPerfil: () => null,
     setInteresse: () => null,
     setNomeCompleto: () => null,
     setUf: () => null,
@@ -42,7 +43,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setUsuario(estadoAnterior => {
             return {
                 ...estadoAnterior,
-                perfil 
+                perfil
             }
         })
     }
@@ -60,7 +61,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setUsuario(estadoAnterior => {
             return {
                 ...estadoAnterior,
-                nomeCompleto 
+                nomeCompleto
             }
         })
     }
@@ -78,7 +79,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setUsuario(estadoAnterior => {
             return {
                 ...estadoAnterior,
-                cidade 
+                cidade
             }
         })
     }
@@ -87,7 +88,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setUsuario(estadoAnterior => {
             return {
                 ...estadoAnterior,
-                 email
+                email
             }
         })
     }
@@ -96,7 +97,7 @@ export const CadastroUsuarioProvider = ({ children }) => {
         setUsuario(estadoAnterior => {
             return {
                 ...estadoAnterior,
-                senha 
+                senha
             }
         })
     }
@@ -113,18 +114,22 @@ export const CadastroUsuarioProvider = ({ children }) => {
     const submeterUsuario = () => {
 
         setErros({})
-        
-        if (usuario.senha.length < 8 ) {
+        if (usuario.senha.length < 8) {
             setErros({ senha: "Senha deve possuir no mínimo 8 caracteres!" })
-            return 
+            return
         }
-
         if (usuario.senha !== usuario.senhaConfirmada) {
             setErros({ senhaConfirmada: "Senhas diferentes. Digite a mesma senha em ambos os campos de senha." })
             return
         }
 
-        navigate('/cadastro/concluido')
+        http.post('auth/register', usuario)
+            .then(() => {
+                navigate('/cadastro/concluido')
+            })
+            .catch((erro) => {
+                console.error(erro)
+            })
     }
 
     const possoSelecionarInteresse = () => {
@@ -136,18 +141,18 @@ export const CadastroUsuarioProvider = ({ children }) => {
     }
 
     const contexto = {
-        usuario, 
+        usuario,
         erros,
         setPerfil,
-        setInteresse, 
-        setNomeCompleto, 
-        setUf, 
-        setCidade, 
-        setEmail, 
-        setSenha, 
+        setInteresse,
+        setNomeCompleto,
+        setUf,
+        setCidade,
+        setEmail,
+        setSenha,
         setSenhaConfirmada,
-        submeterUsuario, 
-        possoSelecionarInteresse, 
+        submeterUsuario,
+        possoSelecionarInteresse,
         possoSelecionarDadosPessoais
     }
 
