@@ -20,6 +20,6 @@ As tecnologias usadas foram:
 - Emotion
 
 ## 🛠️ Abrir e rodar o projeto
-Para abrir e rodar o projeto freelando após download ou clone execute npm install para instalar as dependências e npm run dev para iniciar o projeto. Depois, acesse http://localhost:5371/ no seu navegador.
+Para abrir e rodar o projeto freelando após download ou clone execute npm install para instalar as dependências e npm run dev para iniciar o projeto. Depois, acesse http://127.0.0.1:5173/ no seu navegador.
 
 Foi utilizada a API Freelando disponibilizada pela Alura. Acesse https://github.com/alura-cursos/api-freelando para download ou clone da api. Em seguida, execute npm install para instalar as dependências e npm run start para iniciar a api. Depois, acesse  http://localhost:8080/api no seu navegador para ter acesso a documentação.
