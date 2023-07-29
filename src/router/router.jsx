@@ -8,6 +8,7 @@ import Concluido from "../pages/cadastro/Concluido";
 import PaginaInicial from "../pages/PaginaInicial/PaginaInicial";
 import Pagina404 from "../pages/erros/Pagina404";
 import Login from "../pages/Login/Login";
+import Perfil from "../pages/area-logada/Perfil";
 
 export const router = createBrowserRouter([
     {
@@ -44,7 +45,16 @@ export const router = createBrowserRouter([
                         element: <Concluido />
                     }
                 ]
-            }
+            }, 
+            {
+               path: 'area-logada', 
+               children: [
+                {
+                    path: 'perfil', 
+                    element: <Perfil />
+                }
+               ]
+            }, 
         ]
     },
 ]);
